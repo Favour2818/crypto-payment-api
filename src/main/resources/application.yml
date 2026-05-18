@@ -29,7 +29,7 @@ spring:
 app:
   # Get a free key at https://www.alchemy.com
   # Replace this value — never commit a real key to GitHub
-  alchemy-url: https://eth-mainnet.g.alchemy.com/v2/tX8c_lVygf7ZXOY29vlod
+  alchemy-url: YOUR_ALCHEMY_KEY_HERE
 
   rabbitmq:
     exchange: payment.exchange
