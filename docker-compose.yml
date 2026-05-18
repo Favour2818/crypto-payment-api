@@ -1,0 +1,36 @@
+version: "3.8"
+
+# Run with: docker-compose up -d
+# Stop with: docker-compose down
+
+services:
+
+  # ── Redis (caching & rate limiting) ─────────────────────────────────────
+  redis:
+    image: redis:7-alpine
+    container_name: crypto_redis
+    ports:
+      - "6379:6379"
+    restart: unless-stopped
+
+  # ── RabbitMQ (payment message queue) ────────────────────────────────────
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: crypto_rabbitmq
+    ports:
+      - "5672:5672"    # AMQP port (used by the app)
+      - "15672:15672"  # Management UI → http://localhost:15672
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    restart: unless-stopped
+
+  # ── MongoDB (payment persistence) ────────────────────────────────────────
+  mongodb:
+    image: mongo:7
+    container_name: crypto_mongodb
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_DATABASE: cryptopayments
+    restart: unless-stopped

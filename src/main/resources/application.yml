@@ -1,0 +1,40 @@
+spring:
+  application:
+    name: crypto-payment-api
+
+  # ── MongoDB ─────────────────────────────────────────────────────────────
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/cryptopayments
+
+    # ── Redis ──────────────────────────────────────────────────────────────
+    redis:
+      host: localhost
+      port: 6379
+
+  # ── RabbitMQ ────────────────────────────────────────────────────────────
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+
+  # ── Cache ────────────────────────────────────────────────────────────────
+  cache:
+    type: redis
+    redis:
+      time-to-live: 300000  # 5 minutes in milliseconds
+
+# ── App-specific config ──────────────────────────────────────────────────
+app:
+  # Get a free key at https://www.alchemy.com
+  # Replace this value — never commit a real key to GitHub
+  alchemy-url: https://eth-mainnet.g.alchemy.com/v2/tX8c_lVygf7ZXOY29vlod
+
+  rabbitmq:
+    exchange: payment.exchange
+    queue: payment.queue
+    routing-key: payment.routing.key
+
+server:
+  port: 8080
